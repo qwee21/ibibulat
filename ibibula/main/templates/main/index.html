@@ -1,41 +1,36 @@
-<!doctype html>
-<html lang="en">
+{% extends "main/base.html" %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Всё для сутдентов!</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link href="../ibibula/static/css/styles.css" rel="stylesheet" />
-</head>
+{% load static %}
 
-<body>
-  <header>
-      <img src="../ibibula/static/images/frame.svg" class="bi" height="40">
-      <div class="button-sequence">
-        <button>Каталог услуг</button>
-    <a> 
-      <img class="profile-image" src="../ibibula/static/images/image.png">
-    </a>
-      </div>
-    
-  </header>
-  <header class="catalogue-header">
-    <input placeholder="Введите название услуги">
-    <div class="button-sequence">
+{% block header_sec %}
+</header>
+<header class="catalogue-header">
+  <input placeholder="Введите название услуги">
+  <div class="button-sequence">
     <select name="categories" id="categories">
       <option value="">Все категории</option>
       <option value="Ремонт">Ремонт</option>
-    </select>
-    <button>
-      Поиск
-    </button>
-  </div>
-  </header>
-  <main>
+  </select>
+  {% for category in podcategory %}{% endfor %}
+  <select name="subcategories" id="subcategories" style="display:none;">
+      <option value="">Все подкатегории</option>
+      <option value="Косметический ремонт">Косметический ремонт</option>
+      <option value="Капитальный ремонт">Капитальный ремонт</option>
+      <option value="Ремонт кухни">Ремонт кухни</option>
+      <option value="Ремонт ванной">Ремонт ванной</option>
+      <option value="Электромонтажные работы">Электромонтажные работы</option>
+      <option value="Сантехнические работы">Сантехнические работы</option>
+  </select>
+  <button>
+    Поиск
+  </button>
+</div>
+</header>
+{% endblock header_sec %}
+{% block content %}
+<main>
   <div class="service-card">
-      <img class="little-thumbnail" src="../ibibula/static/images/image.png">
+      <img class="little-thumbnail" src="{% static 'images/image.png' %}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
       <div class="card-details">
         <span class="body-text limited">название услуги название услуги название услуги название услуги</span>
         <span class="price">цена</span>
@@ -45,7 +40,7 @@
       <button style="width:100%">Заказать</button>
   </div>
   <div class="service-card">
-    <img class="little-thumbnail" src="../ibibula/static/images/image.png">
+    <img src="{% static 'images/image.png' %}" class="little-thumbnail" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
     <div class="card-details">
       <span class="body-text">название услуги</span>
       <span class="price">цена</span>
@@ -54,12 +49,10 @@
     <button style="width:100%">Заказать</button>
 </div>
 </main>
-  <footer>
-    <a href="./README.md">Пользовательское соглашение</a>
-    <a href="https://t.me/user_agreement">Telegram</a>
-    <a href="mailto:info@ibibula.example">info@ibibula.example</a>
-    <a href="tel:+79112345678">+7 911 234 5678</a>
-  </footer>
-</body>
+{% endblock content %}
 
-</html>
+
+
+
+
+
