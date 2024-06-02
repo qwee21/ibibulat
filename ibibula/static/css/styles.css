@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "Rockstar";
-  src: url("/RS RockStar/RS-regular.otf");
+  src: url("/static/fonts/RS RockStar/RS-regular.otf") format("opentype");
   font-weight: 400;
 }
 
@@ -14,7 +14,7 @@ body {
     word-break: break-all;
   background-color: var(--purple);
   color: var(--text-color) !important;
-  font-family: "Montserrat", "Rockstar", sans-serif;
+  font-family: "Rockstar", sans-serif;
   padding-top: 32px;
   padding-bottom: 32px;
   display: flex;
@@ -172,7 +172,7 @@ flex-direction: column;
 flex-grow: 1;
 align-items: flex-start;
 padding: 0px 8px 0px;
-gap: 2px;
+gap: 4px;
 
 width: 100%;
 

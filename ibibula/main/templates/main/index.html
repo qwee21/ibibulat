@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
@@ -9,17 +9,15 @@
   <div class="button-sequence">
     <select name="categories" id="categories">
       <option value="">Все категории</option>
-      <option value="Ремонт">Ремонт</option>
-  </select>
-  {% for category in podcategory %}{% endfor %}
+      {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      {% endfor %}
+    </select>
   <select name="subcategories" id="subcategories" style="display:none;">
       <option value="">Все подкатегории</option>
-      <option value="Косметический ремонт">Косметический ремонт</option>
-      <option value="Капитальный ремонт">Капитальный ремонт</option>
-      <option value="Ремонт кухни">Ремонт кухни</option>
-      <option value="Ремонт ванной">Ремонт ванной</option>
-      <option value="Электромонтажные работы">Электромонтажные работы</option>
-      <option value="Сантехнические работы">Сантехнические работы</option>
+      {% for subcategory in subcategories %}
+        <option value="{{ subcategory.id }}" class="subcat-option" data-category="{{ subcategory.categories.first.id }}">{{ subcategory.name }}</option>
+      {% endfor %}
   </select>
   <button>
     Поиск
@@ -29,25 +27,20 @@
 {% endblock header_sec %}
 {% block content %}
 <main>
+  {% for service in services %}
   <div class="service-card">
-      <img class="little-thumbnail" src="{% static 'images/image.png' %}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+      <img src="{{service.image.url}}" class="little-thumbnail" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
       <div class="card-details">
-        <span class="body-text limited">название услуги название услуги название услуги название услуги</span>
-        <span class="price">цена</span>
-        
+        <span class="body-text limited">{{service.name}}</span>
+        <span class="price">{{service.price}} ₽</span>
+        <span class="caption-text">имя испольнителя</span>
       </div>
-      <span class="caption-text" style="padding: 0px 8px;">имя испольнителя</span>
-      <button style="width:100%">Заказать</button>
+      
+      <a href="{% url 'main:service' %}" style="width:100%">
+        <button style="width:100%">Заказать</button>
+      </a>
   </div>
-  <div class="service-card">
-    <img src="{% static 'images/image.png' %}" class="little-thumbnail" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
-    <div class="card-details">
-      <span class="body-text">название услуги</span>
-      <span class="price">цена</span>
-    </div>
-    <span class="caption-text" style="padding: 0px 8px;">имя испольнителя</span>
-    <button style="width:100%">Заказать</button>
-</div>
+  {% endfor %}
 </main>
 {% endblock content %}
 
