@@ -24,7 +24,7 @@
   
       {% if user.is_authenticated %}
         <a href="{% url 'users:profile' %}">
-          <img src="" class="profile-image" 
+          <img src="{{user.image.url}}" class="profile-image" 
                onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
         </a>
       {% else %}
