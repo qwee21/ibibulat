@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main style="flex-direction: column; align-items:center; align-content: center;">
+    <img class="bi" height="40" src="{% static 'images/frame.svg' %}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+    <form class="card" method="post" action="{% url 'users:registration' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="username" id="username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" required placeholder="Имя пользователя" />
+        <input type="email" name="email" id="email" value="{% if form.email.value %}{{ form.email.value }}{% endif %}"  required placeholder="Электронная почта" />
+        <input type="password" name="password1" id="id_password1" value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}" required placeholder="Пароль" />
+        <input type="password" name="password2" id="id_password2"  value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}"  required placeholder="Повторите пароль" />
+        <input type="tel" name="phone_number" id="id_phone_number" value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}" required placeholder="Телефон" />
+        <input type="text" name="telegram" id="telegram" value="{% if form.telegram.value %}{{ form.telegram.value }}{% endif %}" required placeholder="Телеграм" />
+        <input type="submit" value="Зарегистрироваться" />
+    </form>
+    <a href="{% url 'users:login' %}">Войти</a>
+</main>
+{% endblock content %}

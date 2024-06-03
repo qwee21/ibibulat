@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main style="flex-direction: column; align-items:center; align-content: center;">
+    <img class="bi" height="40" src="{% static 'images/frame.svg' %}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+    <form class="card" method="post" action="{% url 'users:login' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" value="{% if form.username.value %}{{form.username.value}}{% endif %}" name="username" id="username" required placeholder="Имя пользователя"/>
+        <input type="password" name="password" id="password" required placeholder="Пароль" />
+        <button type="submit">Войти</button>
+        
+    </form>
+    <a href='{% url "users:registration" %}'>Зарегистрироваться</a>
+</main>
+{% endblock content %}

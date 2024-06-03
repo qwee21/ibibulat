@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="little-page">
+    <form class="card" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="text" name="productname" id="productname" required placeholder="Название продукта" />
+      <input type="text" name="price" id="price" required placeholder="Цена" />
+      <input type="text" name="description" id="description" required placeholder="Описание" />
+      <input type="file" name="thumbnail" accept="image/png, image/jpeg" required/>
+      <input type="submit" value="Сохранить" />
+    </form>
+  </div>
+</main>
+{% endblock content %}

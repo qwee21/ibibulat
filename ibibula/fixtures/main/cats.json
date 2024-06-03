@@ -1,1 +1,90 @@
-[{"model": "main.categories", "pk": 1, "fields": {"name": "IT и Программирование", "slug": "it-i-programmirovanie"}}, {"model": "main.categories", "pk": 2, "fields": {"name": "Математические науки", "slug": "matematicheskie-nauki"}}, {"model": "main.categories", "pk": 3, "fields": {"name": "Экономика и Бизнес", "slug": "ekonomika-i-biznes"}}, {"model": "main.categories", "pk": 4, "fields": {"name": "Языки и Лингвистика", "slug": "yazyki-i-lingvistika"}}, {"model": "main.categories", "pk": 5, "fields": {"name": "Гуманитарные науки", "slug": "gumanitarnye-nauki"}}]
+[
+    {
+        "model": "main.categories",
+        "pk": 7,
+        "fields": {
+            "name": "Помощь в быту",
+            "slug": "pomosh-v-bytu"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 11,
+        "fields": {
+            "name": "Конспекты",
+            "slug": "konspekty"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 12,
+        "fields": {
+            "name": "Лабораторные работы",
+            "slug": "laboratornye-raboty"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 13,
+        "fields": {
+            "name": "Курсовые Работы",
+            "slug": "kursovye-raboty"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 14,
+        "fields": {
+            "name": "Документации",
+            "slug": "dokumentacii"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 15,
+        "fields": {
+            "name": "Презентации",
+            "slug": "prezentacii"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 16,
+        "fields": {
+            "name": "Перевод и интерпретация",
+            "slug": "perevod-i-interpretaciya"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 17,
+        "fields": {
+            "name": "Репетиторство",
+            "slug": "repetitorstvo"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 18,
+        "fields": {
+            "name": "Домашние работы",
+            "slug": "domashnie-raboty"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 19,
+        "fields": {
+            "name": "Минипроект",
+            "slug": "miniproekt"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 20,
+        "fields": {
+            "name": "Курсы и туториалы",
+            "slug": "kursy-i-tutorialy"
+        }
+    }
+]

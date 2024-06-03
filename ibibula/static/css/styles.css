@@ -394,3 +394,18 @@ input[type=file]::file-selector-button {
   cursor: default;
   background: #fff7bd;
 }
+
+/* pagination */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-container button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+

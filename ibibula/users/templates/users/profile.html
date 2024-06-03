@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="little-page">
+    <div style="display: flex; flex-direction: column; gap: 40px">
+      <img
+        class="big-thumbnail"
+        onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';"
+        src="{% if user.image %}{{ user.image.url }}{% else %}https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png{% endif %}"
+        alt="{{ user.username }}"
+      />
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 40px">
+      <div class="infocard">
+        <span class="body-text">{{ user.username }}</span>
+        <span class="caption-text">Телефон: {{ user.phone_number }}</span>
+        <span class="caption-text">Телеграм: {{ user.telegram }}</span>
+        <span class="caption-text">Email: {{ user.email|default:"не указано" }}</span>
+        <a href='{% url "users:edituser" %}' style="width: 100%;">
+          <button style="width: 100%;" margin-top: "12px">Редактировать</button>
+        </a>
+        <a href="{% url 'users:logout' %}" style="width: 100%">
+          <button class="delete" style="width: 100%">Выйти из аккаунта</button>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div  class="little-page" style="align-items: center;">
+    <span class="body-text">Мои объявления</span>
+    <a href='{% url "users:editservice" %}'>
+      <button>Новое объявление</button>
+    </a>
+  </div>
+  <main style="width: 100%">
+    <div class="service-card">
+      <img
+        class="little-thumbnail"
+        src="../ibibula/static/images/image.png"
+        onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';"
+      />
+      <div class="card-details">
+        <span class="body-text limited"
+          >название услуги название услуги название услуги название
+          услуги</span
+        >
+        <span class="price">цена</span>
+      </div>
+      <span class="caption-text" style="padding: 0px 8px"
+        >имя испольнителя</span
+      >
+      <a href='{% url "users:editservice" %}' style="width: 100%">
+
+        <button style="width: 100%">Редактировать</button>
+
+      </a>
+      <button class="delete" style="width: 100%">Удалить</button>
+    </div>
+</main>
+{% endblock content %}

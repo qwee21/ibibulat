@@ -2,28 +2,37 @@
 {% load static %}
 
 {% block content %}
+
 <main>
-  {% for service in services %}
   <div class="little-page">
     <div style="display: flex; flex-direction: column; gap: 40px">
       <img
         class="big-thumbnail"
         onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';"
-        src="{{service.image.url}}"
+        src="{{ service.image.url }}"
+        alt="{{ service.name }}"
       />
       <div class="infocard">
         <span class="body-text">Описание</span>
-        <span class="caption-text" style="color: black">{{service.description}}</span>
+        <span class="caption-text" style="color: black">{{ service.description }}</span>
       </div>
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 40px">
       <div class="infocard">
-        <span class="body-text">{{service.name}}</span>
-        <span class="price">{{service.price}} ₽</span>
+        <span class="body-text">{{ service.name }}</span>
+        <span class="price">{{ service.price }} ₽</span>
 
-        <button style="width: 100%; margin-top: 12px">Редактировать</button>
-        <button class="delete" style="width: 100%">Удалить</button>
+        {% comment %} Айи сделай {% endcomment %}
+        {% if user.is_authenticated %}
+          {% if user == users.user %}
+            <button style="width: 100%; margin-top: 12px">Редактировать</button>
+            <button class="delete" style="width: 100%">Удалить</button>
+          {% endif %}
+          <button style="width: 100%; margin-top: 12px">Выбрать</button>
+        {% else %}
+          <button style="width: 100%; margin-top: 12px">Выбрать</button>
+        {% endif %}
       </div>
       <div class="infocard">
         <span class="body-text">Имя исполнителя</span>
@@ -33,6 +42,6 @@
       </div>
     </div>
   </div>
-  {% endfor %}
 </main>
+
 {% endblock content %}

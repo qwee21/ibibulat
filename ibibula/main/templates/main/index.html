@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block header_sec %}
 </header>
 <header class="catalogue-header">
-  <input placeholder="Введите название услуги">
+  <input id="service-search" placeholder="Введите название услуги">
   <div class="button-sequence">
     <select name="categories" id="categories">
       <option value="">Все категории</option>
@@ -13,39 +12,34 @@
         <option value="{{ category.id }}">{{ category.name }}</option>
       {% endfor %}
     </select>
-  <select name="subcategories" id="subcategories" style="display:none;">
+    <select name="subcategories" id="subcategories" style="display:none;">
       <option value="">Все подкатегории</option>
       {% for subcategory in subcategories %}
-        <option value="{{ subcategory.id }}" class="subcat-option" data-category="{{ subcategory.categories.first.id }}">{{ subcategory.name }}</option>
+        {% for category in subcategory.categories.all %}
+          <option value="{{ subcategory.id }}" class="subcat-option" data-category="{{ category.id }}">{{ subcategory.name }}</option>
+        {% endfor %}
       {% endfor %}
-  </select>
-  <button>
-    Поиск
-  </button>
-</div>
+    </select>
+    <button id="search-button">Поиск</button>
+  </div>
 </header>
 {% endblock header_sec %}
+
 {% block content %}
-<main>
+<main id="services-container">
   {% for service in services %}
-  <div class="service-card">
-      <img src="{{service.image.url}}" class="little-thumbnail" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+    <div class="service-card" data-category="{{ service.category.id }}" data-subcategory="{{ service.subcategory.id }}">
+      <img src="{{ service.image.url }}" class="little-thumbnail" alt="{{ service.name }}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
       <div class="card-details">
-        <span class="body-text limited">{{service.name}}</span>
-        <span class="price">{{service.price}} ₽</span>
-        <span class="caption-text">имя испольнителя</span>
+        <span class="body-text limited">{{ service.name }}</span>
+        <span class="price">{{ service.price }} ₽</span>
+        <span class="caption-text">имя исполнителя</span>
       </div>
-      
-      <a href="{% url 'main:service' %}" style="width:100%">
+      <a href="{% url 'main:service' service_slug=service.slug %}" style="width:100%">
         <button style="width:100%">Заказать</button>
       </a>
-  </div>
+    </div>
   {% endfor %}
 </main>
+<div id="pagination" class="pagination-container"></div>
 {% endblock content %}
-
-
-
-
-
-

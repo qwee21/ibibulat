@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="little-page">
+    <form action='{% url "users:edituser" %}' class="card" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <input type="text" name="username" id="id_username" required placeholder="Имя"/>
+      <input type="email" name="email" id="id_email" value="{{form.email.value}}" required placeholder="Электронная почта"/>
+      <input type="tel" name="phone_number" id="id_phone_number" value="{{form.phone_number.value}}" required placeholder="Телефон" />
+      <input type="text" name="telegram" id="telegram" value="{{form.telegram.value}}" placeholder="Телеграм" />
+      <input type="password" name="password1" id="id_password"value="{{form.password1.value}}" required placeholder="Пароль" />
+      <input type="password" name="password2" id="id_password2" value="{{form.password2.value}}"required placeholder="Повторите пароль" />
+      <input type="file" id="id_image" name="image" accept="image/*" />
+      <input type="submit" value="Сохранить изменения"/>
+    </form>
+  </div>
+</main>
+{% endblock content %}
+

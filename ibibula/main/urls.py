@@ -1,5 +1,5 @@
 
-from django.urls import include, path
+from django.urls import  path
 
 from main import views
 
@@ -7,5 +7,5 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('service/', views.service, name='service'),
+    path('service/<slug:service_slug>/', views.service, name='service'),
 ]
