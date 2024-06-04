@@ -15,26 +15,32 @@
 <body>
 
   <header>
-    <img src="{% static 'images/frame.svg' %}" class="bi" height="40" 
+    <img src="{% static 'images/frame.svg' %}" class="bi" height="40"
          onerror="this.onerror=null; this.src='https://fallback_image_for_frame.svg';">
     <div class="button-sequence">
       <a href="{% url 'main:index' %}">
         <button>Каталог услуг</button>
       </a>
-  
+      
       {% if user.is_authenticated %}
         <a href="{% url 'users:profile' %}">
-          <img src="{{user.image.url}}" class="profile-image" 
-               onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+          {% if user.image and user.image.url %}
+            <img src="{{ user.image.url }}" class="profile-image"
+                 onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+          {% else %}
+            <img src="" class="profile-image"
+                 onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+          {% endif %}
         </a>
       {% else %}
         <a href="{% url 'users:registration' %}">
-          <img src="" class="profile-image" 
+          <img src="{% static 'images/black_person.jpeg' %}" class="profile-image"
                onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
         </a>
       {% endif %}
     </div>
   </header>
+  
   
 
     

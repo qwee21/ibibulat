@@ -28,18 +28,22 @@
 {% block content %}
 <main id="services-container">
   {% for service in services %}
-    <div class="service-card" data-category="{{ service.category.id }}" data-subcategory="{{ service.subcategory.id }}">
-      <img src="{{ service.image.url }}" class="little-thumbnail" alt="{{ service.name }}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
-      <div class="card-details">
-        <span class="body-text limited">{{ service.name }}</span>
-        <span class="price">{{ service.price }} ₽</span>
-        <span class="caption-text">имя исполнителя</span>
-      </div>
+  <div class="service-card" data-category="{{ service.category.id }}" data-subcategory="{{ service.subcategory.id }}">
+    <img src="{{ service.image.url }}" class="little-thumbnail" alt="{{ service.name }}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
+    <div class="card-details">
+      <span class="body-text limited">{{ service.name }}</span>
+      <span class="price">{{ service.price }} ₽</span>
+      <span class="caption-text">имя исполнителя</span>
+    </div>
+    {% if service.slug %}
       <a href="{% url 'main:service' service_slug=service.slug %}" style="width:100%">
         <button style="width:100%">Заказать</button>
       </a>
-    </div>
-  {% endfor %}
+    {% else %}
+      <p>This service does not have a slug value.</p>
+    {% endif %}
+  </div>
+{% endfor %}
 </main>
 <div id="pagination" class="pagination-container"></div>
 {% endblock content %}

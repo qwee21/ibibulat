@@ -5,9 +5,10 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponseRedirect
+from django.utils.text import slugify
 
 from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm, ProductForm
-from users.models import User, Performer
+from users.models import User
 from main.models import Services
 
 
@@ -40,7 +41,6 @@ def profile(request):
     return render(request, "users/profile.html", context)
 
 
-
 @login_required
 def edituser(request):
     if request.method == "POST":
@@ -59,17 +59,32 @@ def edituser(request):
     }
     return render(request, "users/editusers.html", context)
 
+
+
 def editservice(request):
     if request.method == "POST":
-        form = ProductForm(data=request.POST)
+        form = ProductForm(data=request.POST, files=request.FILES)
+
         if form.is_valid():
-            form.save()
+            print(form.cleaned_data)  # Add this line to print out the form data
+            product = Services()
+            product.name = form.cleaned_data['name']
+            product.price = form.cleaned_data['price']
+            product.description = form.cleaned_data['description']
+            product.image = form.cleaned_data['image']
+            product.category = form.cleaned_data['category']
+            product.subcategory = form.cleaned_data['subcategory']
+            product.slug = slugify(form.cleaned_data['name'])
+            product.save()
+            product.refresh_from_db()
             return HttpResponseRedirect(reverse("users:profile"))
     else:
         form = ProductForm()
 
     context = {"title": "Все для студентов", "form": form}
     return render(request, "users/editservices.html", context)
+
+
 
 
 
@@ -84,12 +99,6 @@ def registration(request):
 
     context = {"title": "Все для студентов", "form": form}
     return render(request, "users/registration.html", context)
-
-
-
-
-
-
 
 
 @login_required
