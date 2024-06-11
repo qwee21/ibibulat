@@ -31,10 +31,10 @@
         {% endif %}
       </div>
       <div class="infocard">
-        <span class="body-text">Имя исполнителя</span>
-        <span class="caption-text">Телефон: 3123123123</span>
-        <span class="caption-text">telegram: @wefewfwefew</span>
-        <span class="caption-text">email: не указано</span>
+        <span class="body-text">{{ performer.user.username }}</span>
+        <span class="caption-text">Телефон: {{ performer.user.phone_number }}</span>
+        <span class="caption-text">Telegram: {{ performer.user.telegram }}</span>
+        <span class="caption-text">Email: {{ performer.user.email|default:"не указано" }}</span>
       </div>
     </div>
   </div>

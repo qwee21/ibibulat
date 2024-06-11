@@ -1,5 +1,5 @@
 from django.contrib import auth, messages
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -104,3 +104,9 @@ def logout(request):
     messages.success(request, f"{request.user.username}, Вы вышли из аккаунта")
     auth.logout(request)
     return redirect(reverse("main:index"))
+
+@login_required
+def delete_service(request, service_id):
+    service = get_object_or_404(Services, id=service_id, performer__user=request.user)
+    service.delete()
+    return redirect('users:profile')

@@ -11,5 +11,6 @@ urlpatterns = [
     path('registration/', views.registration, name='registration'),
     path('edituser/', views.edituser, name='edituser'),
     path('editservice/', views.editservice, name='editservice'),
+    path('delete_service/<int:service_id>/', views.delete_service, name='delete_service'),
     path('logout/', views.logout, name='logout'),
 ]

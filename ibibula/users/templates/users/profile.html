@@ -50,7 +50,10 @@
       <a href='{% url "users:editservice" %}' style="width: 100%">
         <button style="width: 100%">Редактировать</button>
       </a>
-      <button class="delete" style="width: 100%">Удалить</button>
+      <form action="{% url 'users:delete_service' service.id %}" method="post" style="width: 100%;">
+        {% csrf_token %}
+        <button class="delete" style="width: 100%">Удалить</button>
+      </form>
     </div>
     {% endfor %}
   </main>
