@@ -6,12 +6,95 @@
     <img class="bi" height="40" src="{% static 'images/frame.svg' %}" onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';">
     <form class="card" method="post" action="{% url 'users:registration' %}" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text" name="username" id="username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" required placeholder="Имя пользователя" />
-        <input type="email" name="email" id="email" value="{% if form.email.value %}{{ form.email.value }}{% endif %}"  required placeholder="Электронная почта" />
-        <input type="password" name="password1" id="id_password1" value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}" required placeholder="Пароль" />
-        <input type="password" name="password2" id="id_password2"  value="{% if form.password2.value %}{{ form.password2.value }}{% endif %}"  required placeholder="Повторите пароль" />
-        <input type="tel" name="phone_number" id="id_phone_number" value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}" required placeholder="Телефон" />
-        <input type="text" name="telegram" id="telegram" value="{% if form.telegram.value %}{{ form.telegram.value }}{% endif %}" required placeholder="Телеграм" />
+        
+        {% if form.non_field_errors %}
+            <div class="error">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <div>
+            <input type="text" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}" required placeholder="Имя пользователя" />
+            {% if form.username.errors %}
+                <div class="error">
+                    <ul>
+                        {% for error in form.username.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div>
+            <input type="email" name="email" id="email" value="{{ form.email.value|default_if_none:'' }}" required placeholder="Электронная почта" />
+            {% if form.email.errors %}
+                <div class="error">
+                    <ul>
+                        {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div>
+            <input type="password" name="password1" id="id_password1" value="{{ form.password1.value|default_if_none:'' }}" required placeholder="Пароль" />
+            {% if form.password1.errors %}
+                <div class="error">
+                    <ul>
+                        {% for error in form.password1.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div>
+            <input type="password" name="password2" id="id_password2" value="{{ form.password2.value|default_if_none:'' }}" required placeholder="Повторите пароль" />
+            {% if form.password2.errors %}
+                <div class="error">
+                    <ul>
+                        {% for error in form.password2.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div>
+            <input type="tel" name="phone_number" id="id_phone_number" value="{{ form.phone_number.value|default_if_none:'' }}" required placeholder="Телефон" />
+            {% if form.phone_number.errors %}
+                <div class="error">
+                    <ul>
+                        {% for error in form.phone_number.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div>
+            <input type="text" name="telegram" id="telegram" value="{{ form.telegram.value|default_if_none:'' }}" required placeholder="Телеграм" />
+            {% if form.telegram.errors %}
+                <div class="error">
+                    <ul>
+                        {% for error in form.telegram.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+
         <input type="submit" value="Зарегистрироваться" />
     </form>
     <a href="{% url 'users:login' %}">Войти</a>

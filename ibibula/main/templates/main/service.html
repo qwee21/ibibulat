@@ -2,16 +2,13 @@
 {% load static %}
 
 {% block content %}
-
 <main>
   <div class="little-page">
     <div style="display: flex; flex-direction: column; gap: 40px">
-      <img
-        class="big-thumbnail"
-        onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';"
-        src="{{ service.image.url }}"
-        alt="{{ service.name }}"
-      />
+      <img class="big-thumbnail"
+           onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';"
+           src="{{ service.image.url }}"
+           alt="{{ service.name }}" />
       <div class="infocard">
         <span class="body-text">Описание</span>
         <span class="caption-text" style="color: black">{{ service.description }}</span>
@@ -23,9 +20,8 @@
         <span class="body-text">{{ service.name }}</span>
         <span class="price">{{ service.price }} ₽</span>
 
-        {% comment %} Айи сделай {% endcomment %}
         {% if user.is_authenticated %}
-          {% if user == users.user %}
+          {% if user == service.user %}
             <button style="width: 100%; margin-top: 12px">Редактировать</button>
             <button class="delete" style="width: 100%">Удалить</button>
           {% endif %}
@@ -43,5 +39,4 @@
     </div>
   </div>
 </main>
-
 {% endblock content %}

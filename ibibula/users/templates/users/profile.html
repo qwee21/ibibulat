@@ -27,35 +27,32 @@
       </div>
     </div>
   </div>
-  <div  class="little-page" style="align-items: center;">
+  <div class="little-page" style="align-items: center;">
     <span class="body-text">Мои объявления</span>
     <a href='{% url "users:editservice" %}'>
       <button>Новое объявление</button>
     </a>
   </div>
   <main style="width: 100%">
+    {% for service in user_services %}
     <div class="service-card">
       <img
         class="little-thumbnail"
-        src="../ibibula/static/images/image.png"
+        src="{% if service.image %}{{ service.image.url }}{% else %}https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png{% endif %}"
         onerror="this.onerror=null; this.src='https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png';"
+        alt="{{ service.name }}"
       />
       <div class="card-details">
-        <span class="body-text limited"
-          >название услуги название услуги название услуги название
-          услуги</span
-        >
-        <span class="price">цена</span>
+        <span class="body-text limited">{{ service.name }}</span>
+        <span class="price">{{ service.price }} ₽</span>
       </div>
-      <span class="caption-text" style="padding: 0px 8px"
-        >имя испольнителя</span
-      >
+      <span class="caption-text" style="padding: 0px 8px">{{ service.performer.user.username }}</span>
       <a href='{% url "users:editservice" %}' style="width: 100%">
-
         <button style="width: 100%">Редактировать</button>
-
       </a>
       <button class="delete" style="width: 100%">Удалить</button>
     </div>
+    {% endfor %}
+  </main>
 </main>
 {% endblock content %}

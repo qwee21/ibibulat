@@ -4,7 +4,7 @@
 {% block content %}
 <main>
   <div class="little-page">
-    <form action='{% url "users:editservice" %}' class="card" method="post" enctype="multipart/form-data">
+    <form action="{% url 'users:editservice' %}" class="card" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Сохранить" />

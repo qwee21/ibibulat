@@ -55,11 +55,22 @@ class ProfileForm(UserChangeForm):
 
 class ProductForm(forms.Form):
     name = forms.CharField()
-    price = forms.DecimalField(decimal_places=2)  # Modify this line to use a DecimalField
-    description = forms.CharField()
+    price = forms.DecimalField(decimal_places=2)
+    description = forms.CharField(widget=forms.Textarea)
     image = forms.ImageField()
-    category = forms.ChoiceField(choices=[(category.id, category.name) for category in Categories.objects.all()])
-    subcategory = forms.ChoiceField(choices=[(subcategory.id, subcategory.name) for subcategory in Subcategories.objects.all()])
+    category = forms.ChoiceField()
+    subcategory = forms.ChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['category'].choices = [(category.id, category.name) for category in Categories.objects.all()]
+        self.fields['subcategory'].choices = [(subcategory.id, subcategory.name) for subcategory in Subcategories.objects.all()]
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price is None:
+            raise forms.ValidationError("Price must be a valid decimal number.")
+        return price
 
     def clean_category(self):
         category_id = self.cleaned_data['category']
@@ -69,17 +80,26 @@ class ProductForm(forms.Form):
         subcategory_id = self.cleaned_data['subcategory']
         return Subcategories.objects.get(id=subcategory_id)
 
+    def generate_unique_slug(self, name):
+        slug = slugify(name)
+        unique_slug = slug
+        num = 1
+        while Services.objects.filter(slug=unique_slug).exists():
+            unique_slug = f"{slug}-{num}"
+            num += 1
+        return unique_slug
+
     def save(self):
-        product = Services()
-        product.name = self.cleaned_data['name']
-        product.price = self.cleaned_data['price']
-        product.description = self.cleaned_data['description']
-        product.image = self.cleaned_data['image']
-        product.category = self.cleaned_data['category']
-        product.subcategory = self.cleaned_data['subcategory']
-        product.slug = slugify(self.cleaned_data['name'])
+        product = Services(
+            name=self.cleaned_data['name'],
+            price=self.cleaned_data['price'],
+            description=self.cleaned_data['description'],
+            image=self.cleaned_data['image'],
+            category=self.cleaned_data['category'],
+            subcategory=self.cleaned_data['subcategory'],
+            slug=self.generate_unique_slug(self.cleaned_data['name']),
+        )
         product.save()
-        product.refresh_from_db()
         return product
 
 

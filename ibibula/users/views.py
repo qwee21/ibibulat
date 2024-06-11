@@ -1,19 +1,16 @@
 from django.contrib import auth, messages
 from django.shortcuts import redirect, render
-from django.template import context
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
 from django.http import HttpResponseRedirect
 from django.utils.text import slugify
 
 from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm, ProductForm
-from users.models import User
+from users.models import User, Performer
 from main.models import Services
 
 
 def login(request):
-
     users = User.objects.all()
 
     if request.method == "POST":
@@ -34,10 +31,14 @@ def login(request):
     return render(request, "users/login.html", context)
 
 
+@login_required
 def profile(request):
+    user_services = Services.objects.filter(performer__user=request.user)
 
-    context = {"title": "Все для студентов"}
-
+    context = {
+        "title": "Все для студентов",
+        "user_services": user_services,
+    }
     return render(request, "users/profile.html", context)
 
 
@@ -60,31 +61,28 @@ def edituser(request):
     return render(request, "users/editusers.html", context)
 
 
-
 def editservice(request):
     if request.method == "POST":
         form = ProductForm(data=request.POST, files=request.FILES)
 
         if form.is_valid():
-            print(form.cleaned_data)  # Add this line to print out the form data
-            product = Services()
-            product.name = form.cleaned_data['name']
-            product.price = form.cleaned_data['price']
-            product.description = form.cleaned_data['description']
-            product.image = form.cleaned_data['image']
-            product.category = form.cleaned_data['category']
-            product.subcategory = form.cleaned_data['subcategory']
-            product.slug = slugify(form.cleaned_data['name'])
-            product.save()
-            product.refresh_from_db()
+            product = form.save()
+
+            # Retrieve the logged-in user's performer account
+            performer, created = Performer.objects.get_or_create(user=request.user)
+
+            # Add the new service to the performer's services
+            performer.services.add(product)
+            performer.save()
+
             return HttpResponseRedirect(reverse("users:profile"))
+        else:
+            print(form.errors)  # Add this line to print out the form errors
     else:
         form = ProductForm()
 
     context = {"title": "Все для студентов", "form": form}
     return render(request, "users/editservices.html", context)
-
-
 
 
 

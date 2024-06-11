@@ -33,7 +33,13 @@
     <div class="card-details">
       <span class="body-text limited">{{ service.name }}</span>
       <span class="price">{{ service.price }} ₽</span>
-      <span class="caption-text">имя исполнителя</span>
+      <span class="caption-text">
+        {% if service.performer_set.all %}
+          {{ service.performer_set.all.0.user.username }}
+        {% else %}
+          имя исполнителя
+        {% endif %}
+      </span>
     </div>
     {% if service.slug %}
       <a href="{% url 'main:service' service_slug=service.slug %}" style="width:100%">
@@ -43,7 +49,7 @@
       <p>This service does not have a slug value.</p>
     {% endif %}
   </div>
-{% endfor %}
+  {% endfor %}
 </main>
 <div id="pagination" class="pagination-container"></div>
 {% endblock content %}
